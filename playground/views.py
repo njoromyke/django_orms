@@ -5,6 +5,6 @@ from store.models import Customer, Product
 
 
 def say_hello(request):
-    query_set = Customer.objects.annotate(new_id=F('id'))
+    query_set = Customer.objects.annotate(new_id=F('id') +1)
 
     return render(request, 'hello.html', {'name': 'Mosh', 'result': query_set})
