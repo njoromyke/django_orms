@@ -1,9 +1,18 @@
 from django.shortcuts import render
-from store.models import Collection, Product
+from django.db import transaction
+from store.models import Collection, Order, OrderItem, Product
 
 
+@transaction.atomic()
 def say_hello(request):
-    collection = Collection(pk=4)
-    collection.delete()
+    order = Order()
+    order.customer_id = 1
+    order.save()
+
+    item = OrderItem()
+    item.order = order
+    item.product_id = 1
+    item.quantity = 200
+    item.unit_price = 1000
 
     return render(request, 'hello.html', {'name': 'Mosh'})
