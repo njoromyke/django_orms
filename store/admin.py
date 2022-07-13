@@ -1,4 +1,3 @@
-from itertools import product
 from django.contrib import admin, messages
 from django.db.models import Count
 from django.utils.html import format_html, urlencode
