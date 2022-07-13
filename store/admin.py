@@ -32,8 +32,9 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'membership', 'orders']
-    list_editable = ['membership']
     list_per_page = 10
+    list_editable = ['membership']
+    search_fields = ['first_name__istartswith', 'last_name__istartswith']
 
     @admin.display(ordering='orders_count')
     def orders(self, customer):
@@ -49,6 +50,7 @@ class CustomerAdmin(admin.ModelAdmin):
         return super().get_queryset(request).annotate(
             orders_count=Count('order')
         )
+
 
 @admin.register(models.Collection)
 class CollectionAdmin(admin.ModelAdmin):
